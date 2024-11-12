@@ -1,0 +1,117 @@
+{
+  "status_code": 200,
+  "message": "OK",
+  "result": [
+    {
+      "category": "Popular",
+      "movies": [
+        {
+          "id": 1,
+          "title": "Avengers: Endgame",
+          "genre": "Action, Adventure, Drama",
+          "release_year": 2019,
+          "poster_url": "https://example.com/avengers_endgame.jpg",
+          "image_path": "assets/images/movies/movie_1.jpg"
+        },
+        {
+          "id": 2,
+          "title": "Joker",
+          "genre": "Crime, Drama, Thriller",
+          "release_year": 2019,
+          "poster_url": "https://example.com/joker.jpg",
+          "image_path": "assets/images/movies/movie_2.jpg"
+        },
+        {
+          "id": 7,
+          "title": "Joker",
+          "genre": "Crime, Drama, Thriller",
+          "release_year": 2019,
+          "poster_url": "https://example.com/joker.jpg",
+          "image_path": "assets/images/movies/movie_7.jpg"
+        },
+        {
+          "id": 8,
+          "title": "Joker",
+          "genre": "Crime, Drama, Thriller",
+          "release_year": 2019,
+          "poster_url": "https://example.com/joker.jpg",
+          "image_path": "assets/images/movies/movie_8.jpg"
+        },
+        {
+          "id": 9,
+          "title": "Joker",
+          "genre": "Crime, Drama, Thriller",
+          "release_year": 2019,
+          "poster_url": "https://example.com/joker.jpg",
+          "image_path": "assets/images/movies/movie_9.jpg"
+        }
+      ]
+    },
+    {
+      "category": "Action",
+      "movies": [
+        {
+          "id": 3,
+          "title": "Mad Max: Fury Road",
+          "genre": "Action, Adventure, Sci-Fi",
+          "release_year": 2015,
+          "poster_url": "https://example.com/mad_max_fury_road.jpg",
+          "image_path": "assets/images/movies/movie_3.jpg"
+        },
+        {
+          "id": 4,
+          "title": "John Wick",
+          "genre": "Action, Crime, Thriller",
+          "release_year": 2014,
+          "poster_url": "https://example.com/john_wick.jpg",
+          "image_path": "assets/images/movies/movie_4.jpg"
+        },
+        {
+          "id": 10,
+          "title": "John Wick",
+          "genre": "Action, Crime, Thriller",
+          "release_year": 2014,
+          "poster_url": "https://example.com/john_wick.jpg",
+          "image_path": "assets/images/movies/movie_5.jpg"
+        },
+        {
+          "id": 11,
+          "title": "John Wick",
+          "genre": "Action, Crime, Thriller",
+          "release_year": 2014,
+          "poster_url": "https://example.com/john_wick.jpg",
+          "image_path": "assets/images/movies/movie_3.jpg"
+        },
+        {
+          "id": 12,
+          "title": "John Wick",
+          "genre": "Action, Crime, Thriller",
+          "release_year": 2014,
+          "poster_url": "https://example.com/john_wick.jpg",
+          "image_path": "assets/images/movies/movie_8.jpg"
+        }
+      ]
+    },
+    {
+      "category": "Drama",
+      "movies": [
+        {
+          "id": 5,
+          "title": "The Shawshank Redemption",
+          "genre": "Drama",
+          "release_year": 1994,
+          "poster_url": "https://example.com/shawshank_redemption.jpg",
+          "image_path": "assets/images/movies/movie_5.jpg"
+        },
+        {
+          "id": 6,
+          "title": "Forrest Gump",
+          "genre": "Drama, Romance",
+          "release_year": 1994,
+          "poster_url": "https://example.com/forrest_gump.jpg",
+          "image_path": "assets/images/movies/movie_6.jpg"
+        }
+      ]
+    }
+  ]
+}
