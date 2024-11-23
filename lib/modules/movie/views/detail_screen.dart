@@ -1,141 +1,188 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class MovieDetailScreen extends StatelessWidget {
-  final String movieTitle;
-  final String moviePoster;
-  final String movieDescription;
-  final double movieRating;
+class MovieDetailScreen extends StatefulWidget {
+  const MovieDetailScreen({super.key});
 
-  const MovieDetailScreen({
-    super.key,
-    required this.movieTitle,
-    required this.moviePoster,
-    required this.movieDescription,
-    required this.movieRating,
-  });
+  @override
+  // ignore: library_private_types_in_public_api
+  _MovieDetailScreenState createState() => _MovieDetailScreenState();
+}
 
-  Future<void> _loadData() async {
-    await Future.delayed(const Duration(seconds: 2)); // Simulate a delay
+class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  bool isLoading = false; // Track loading state
+
+  Future<void> _onPlayPressed() async {
+    setState(() {
+      isLoading = true; // Show loading indicator
+    });
+
+    // Simulate a delay (e.g., movie loading or API call)
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      isLoading = false; // Hide loading indicator
+    });
+
+    // // Handle play action logic here
+    // print('Play button pressed!');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: FutureBuilder(
-        future: _loadData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return _buildLoadingPlaceholder();
-          } else {
-            return _buildMovieDetails();
-          }
-        },
-      ),
-      // bottomNavigationBar: FutureBuilder(
-      //   future: _loadData(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return _buildLoadingButton();
-      //     } else {
-      //       return _buildWatchNowButton(context);
-      //     }
-      //   },
-      // ),
-    );
-  }
-
-  // Widget to show the actual content
-  Widget _buildMovieDetails() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Movie Poster
-            Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  moviePoster,
+            // Top Movie Banner
+            Stack(
+              children: [
+                Container(
                   height: 250,
-                  fit: BoxFit.cover,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/movies/movie_1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  left: 20,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Doctor Strange',
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        children: [
+                          RatingBar.builder(
+                            initialRating: 7.5 / 2,
+                            minRating: 1,
+                            itemSize: 18,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 1.0),
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {},
+                          ),
+                          const SizedBox(width: 10),
+                          const Text(
+                            '7.5',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // Play Button
+            Center(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width *
+                    0.9, // 90% of the screen width
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 255, 17, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
+                    side: const BorderSide(color: Color.fromARGB(255, 255, 17, 0), width: 2),
+                  ),
+                  onPressed: isLoading
+                      ? null
+                      : _onPlayPressed, // Disable button when loading
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (isLoading)
+                        const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      else
+                        const Icon(Icons.play_arrow, color: Colors.white),
+                      const SizedBox(width: 5),
+                      Text(
+                        isLoading ? 'Loading...' : 'Play',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
 
-            // Movie Title
-            Text(
-              movieTitle,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 20),
 
-            // Button Watch Now
-            ElevatedButton(
-              onPressed: () {
-                // Button action
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
-                backgroundColor: Colors.red[900],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
+            // Continue Watching Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Continue Watching',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              child: const Text(
-                'Watch Now',
-                style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+            const SizedBox(height: 10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  buildContinueWatchingCard(),
+                  buildContinueWatchingCard(),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
 
-            // // Movie Rating
-            // Row(
-            //   children: [
-            //     Icon(Icons.star, color: Colors.yellow[700]),
-            //     const SizedBox(width: 4),
-            //     Text(
-            //       '$movieRating/10',
-            //       style: const TextStyle(fontSize: 18),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
-            // // Tags
-            // Wrap(
-            //   spacing: 8,
-            //   children: [
-            //     _buildTagChip('Action'),
-            //     _buildTagChip('Adventure'),
-            //     _buildTagChip('Fantasy'),
-            //   ],
-            // ),
-
-            // const SizedBox(height: 16),
-
-            // Movie Description
-            Text(
-              movieDescription,
-              style: const TextStyle(
-                fontSize: 16,
-                height: 1.5,
-                color: Colors.black87,
+            // Trending Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Trending Now',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -144,121 +191,52 @@ class MovieDetailScreen extends StatelessWidget {
     );
   }
 
-  // Widget to show loading placeholders
-  Widget _buildLoadingPlaceholder() {
+  Widget buildContinueWatchingCard() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Placeholder for Movie Poster
-          Center(
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: Container(
-                width: double.infinity,
-                height: 250,
-                color: Colors.grey,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Placeholder for Movie Title
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-            child: Container(
-              height: 30,
-              width: 200,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 8),
-
-          // Placeholder for Movie Rating
-          Row(
-            children: [
-              Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  width: 50,
-                  height: 20,
-                  color: Colors.grey,
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Container(
+        width: 140,
+        decoration: BoxDecoration(
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 100,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/movies/movie_2.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(10),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          // Placeholder for Movie Description
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-            child: Container(
-              height: 100,
-              color: Colors.grey,
             ),
-          ),
-          const SizedBox(height: 16),
-
-          // Placeholder for Additional Details
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-            child: Container(
-              height: 20,
-              width: 150,
-              color: Colors.grey,
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: 0.6,
+                      color: Color.fromARGB(255, 255, 17, 0),
+                      backgroundColor: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    '1:26:53',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTagChip(String category) {
-    return Chip(
-      label: Text(
-        category,
-        style: const TextStyle(color: Colors.white),
-      ),
-      backgroundColor: Colors.black,
-    );
-  }
-
-  // Actual Button after loading
-  Widget _buildWatchNowButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ElevatedButton(
-        onPressed: () {
-          // Button action
-        },
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size(double.infinity, 50), backgroundColor: Colors.black,
-        ),
-        child: const Text(
-          'Watch Now',
-          style: TextStyle(fontSize: 18, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  // Loading Button Placeholder
-  Widget _buildLoadingButton() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ElevatedButton(
-        onPressed: null, // Disabled during loading
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size(double.infinity, 50), backgroundColor: Colors.grey[300], // Greyed out color for loading
-        ),
-        child: const CircularProgressIndicator(
-          color: Colors.white,
+          ],
         ),
       ),
     );

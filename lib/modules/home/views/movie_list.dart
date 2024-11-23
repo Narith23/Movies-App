@@ -15,7 +15,7 @@ class MovieList extends StatelessWidget {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white70,
             ),
           ),
           const SizedBox(height: 10),
@@ -25,7 +25,10 @@ class MovieList extends StatelessWidget {
             'assets/images/movie3.jpg',
             'assets/images/movie4.jpg',
           ], [
-            'Movie 1', 'Movie 2', 'Movie 3','Movie 4'
+            'Movie 1',
+            'Movie 2',
+            'Movie 3',
+            'Movie 4'
           ], context),
         ],
       ),
@@ -33,7 +36,8 @@ class MovieList extends StatelessWidget {
   }
 
   // Helper function to build movie list
-  Widget _buildMovieList(List<String> images, List<String> titles, BuildContext context) {
+  Widget _buildMovieList(
+      List<String> images, List<String> titles, BuildContext context) {
     return SizedBox(
       height: 200,
       child: ListView.builder(
@@ -46,12 +50,12 @@ class MovieList extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MovieDetailScreen(
-                    movieTitle: titles[index],
-                    moviePoster: images[index],
-                    movieDescription: 'Placeholders can be used to enhance the experience of your application. They’re built only with HTML and CSS, meaning you don’t need any JavaScript to create them. You will, however, need some custom JavaScript to toggle their visibility. Their appearance, color, and sizing can be easily customized with our utility classes.',
-                    movieRating: 8.5,
-                  ),
+                  builder: (context) => const MovieDetailScreen(
+                      // movieTitle: titles[index],
+                      // moviePoster: images[index],
+                      // movieDescription: 'Placeholders can be used to enhance the experience of your application. They’re built only with HTML and CSS, meaning you don’t need any JavaScript to create them. You will, however, need some custom JavaScript to toggle their visibility. Their appearance, color, and sizing can be easily customized with our utility classes.',
+                      // movieRating: 8.5,
+                      ),
                 ),
               );
             },

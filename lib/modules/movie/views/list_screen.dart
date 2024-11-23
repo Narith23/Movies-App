@@ -36,6 +36,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(8.0), // Add padding to the body
         child: Column(
@@ -107,7 +108,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
                                   style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                    color: Colors.white70,
                                   ),
                                 ),
                                 const Spacer(),
