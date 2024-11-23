@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,  // Disable debug banner for a cleaner look
       title: 'Movies App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: const MainScreen(),  // Set MainScreen as the home screen
     );

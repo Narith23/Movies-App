@@ -16,14 +16,14 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       backgroundColor: Colors.black,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.login, color: Colors.white),
-          onPressed: () {
-            Navigator.pushNamed(context, '/login');
-          },
-        ),
-      ],
+      // actions: [
+      //   IconButton(
+      //     icon: const Icon(Icons.login, color: Colors.white),
+      //     onPressed: () {
+      //       Navigator.pushNamed(context, '/login');
+      //     },
+      //   ),
+      // ],
     );
   }
 

@@ -14,6 +14,8 @@ class GlobalBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
+      selectedItemColor: const Color.fromARGB(255, 255, 17, 0), // Set active icon and label color to red
+      unselectedItemColor: const Color.fromARGB(255, 110, 110, 110), // Optional: Set inactive items to grey
       onTap: onTap,
       items: const [
         BottomNavigationBarItem(

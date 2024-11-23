@@ -4,6 +4,7 @@
   "result": [
     {
       "category": "Popular",
+      "count": 27,
       "movies": [
         {
           "id": 1,
@@ -49,6 +50,7 @@
     },
     {
       "category": "Action",
+      "count": 10,
       "movies": [
         {
           "id": 3,
@@ -94,6 +96,7 @@
     },
     {
       "category": "Drama",
+      "count": 5,
       "movies": [
         {
           "id": 5,
@@ -105,6 +108,14 @@
         },
         {
           "id": 6,
+          "title": "Forrest Gump",
+          "genre": "Drama, Romance",
+          "release_year": 1994,
+          "poster_url": "https://example.com/forrest_gump.jpg",
+          "image_path": "assets/images/movies/movie_6.jpg"
+        },
+        {
+          "id": 13,
           "title": "Forrest Gump",
           "genre": "Drama, Romance",
           "release_year": 1994,

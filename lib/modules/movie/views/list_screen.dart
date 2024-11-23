@@ -43,14 +43,20 @@ class _MoviesScreenState extends State<MoviesScreen> {
             // Search box
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: TextField(
-                controller: _searchController,
-                onChanged: _onSearchChanged,
-                decoration: InputDecoration(
-                  labelText: 'Search Movies',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: _onSearchChanged,
+                  decoration: const InputDecoration(
+                    hintText: "Search movies...",
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.search),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   ),
                 ),
               ),
@@ -62,13 +68,13 @@ class _MoviesScreenState extends State<MoviesScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // Show a loading indicator with 0.8 opacity
                     return const Opacity(
-                      opacity: 0.8, // Apply 0.8 opacity to the loading state
+                      opacity: 0.8,
                       child: Center(child: CircularProgressIndicator()),
                     );
                   } else if (snapshot.hasError) {
                     // Show error state with 0.8 opacity
                     return Opacity(
-                      opacity: 0.8, // Apply 0.8 opacity to the error state
+                      opacity: 0.8,
                       child: Center(child: Text('Error: ${snapshot.error}')),
                     );
                   } else if (snapshot.hasData) {
@@ -94,14 +100,31 @@ class _MoviesScreenState extends State<MoviesScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 10),
-                            // Display category name
-                            Text(
-                              category['category'],
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  category['category'],
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const Spacer(),
+                                GestureDetector(
+                                  onTap: () {
+                                    // Optionally, navigate to a movie list screen
+                                  },
+                                  child: const Text(
+                                    'View All',
+                                    style: TextStyle(
+                                      // fontSize: 16,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 10),
                             // Display filtered movie list for this category
